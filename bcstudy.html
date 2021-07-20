@@ -19,7 +19,9 @@
 					<a href="https://github.com/OKRan666" class="image avatar"><img src="images/avatar.jpg" alt="" /></a>
 					<h1><strong>区块链学习目录</strong><br />
 					<br /></h1>
-					<p>1.密码学原理</p>
+					<p>1.密码学原理<br>
+						1.1杂凑函数
+					</p>
 				</div>
 			</header>
 
@@ -27,9 +29,46 @@
 			<div id="main">
 
 				<!-- One -->
-					<section id="one">
-						<h1>密码学原理</h1>
-						<p></p>
+					<section id="one" style="color: black;">
+						<h1>一、密码学原理</h1>
+						<h3 style="color: red;font-weight: bold;">1.1&nbsp杂凑函数</h3>
+						<p>
+							<span class="bold">①定义</span>
+							<br>
+							杂凑函数（散列函数、哈希函数），能够<span class="bold">把任意长度的输入消息映射成固定长度的输出消息</span>。其函数计算模型表达式为：<span class="centers bold">y = H(x) , {0,1}*->{0,1}</span>
+							<br>
+							H(x)一般称为x的散列值、Hash值或信息摘要。<br>输出长度一般为128，160，192，256，384，512bits等。
+							<br>
+							<span class="bold">②性质</span>
+							<br>
+							<span class="redcolor bold">快速性</span>&nbsp&nbsp&nbsp任给一个值x，找到其散列值H(x)是容易的。<br>
+							<span class="redcolor bold">单向性（抗原性）</span>&nbsp&nbsp&nbsp任给一个y=H(x)，找到其原值x是困难的。<br>
+							<span class="redcolor bold">弱抗碰撞</span>&nbsp&nbsp&nbsp对于x1，寻找x2，使得H(x1)=H(x2)是困难的。<br>
+							<span class="redcolor bold">强抗碰撞</span>&nbsp&nbsp&nbsp寻找两个值x1!=x2，使二者满足H(x1)=H(x2)是困难的。是容易的。<br>
+							<span class="bold">③抗碰撞杂凑函数</span>
+							<br>
+							对于<span class="redcolor">单项杂凑函数</span>而言【单项杂凑函数：满足单向性的杂凑函数】
+							<br>
+							给定一个值M1，寻找M2使得H(M1)=H(M2)在计算上不可行，该单向杂凑函数被称为<span class="redcolor">弱单向杂凑函数</span>。
+							<br>
+							找到任意一对M，M'，M!=M'，H(M)=H(M')在计算上不可行，该单向杂凑函数被称为<span class="redcolor">强单向杂凑函数</span>。
+							<br>
+							<span class="bold">④杂凑函数在区块链中的应用</span>
+							<br>
+							<span class="redcolor">1.数据规范化</span>&nbsp&nbsp&nbsp将任意长度的消息输出为固定长度消息。
+							<br>
+							<img src="images/bcstudy/funcapp1.jpg">
+							<br>
+							<span class="redcolor">2.压缩函数</span>&nbsp&nbsp&nbsp将任意长度的消息拆分成n个组，与杂凑初始化值IV一起作为压缩函数的输入。
+							<br>
+							<img src="images/bcstudy/funcapp2.jpg">
+							<br>
+							<span class="redcolor">3.哈希函数与数据结构</span>
+							&nbsp&nbsp&nbsp指示信息存储位置、提供信息检索功能、具备防篡改性质。
+							<br>
+							<img src="images/bcstudy/funcapp3.jpg">
+						</p>
+						<style>span.redcolor{color: red;} span.bold{font-weight: bold;} span.centers{text-align: center;} </style>
 					</section>
 			</div>
 
