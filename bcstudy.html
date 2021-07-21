@@ -20,7 +20,8 @@
 					<h1><strong>区块链学习目录</strong><br />
 					<br /></h1>
 					<p><a href="#h1">1.密码学原理</a><br>
-						<a href="#h11">1.1杂凑函数</a>
+						<a href="#h11">1.1杂凑函数</a><br>
+						<a href="#h22">1.2Merkle树</a>
 					</p>
 				</div>
 			</header>
@@ -67,6 +68,40 @@
 							&nbsp&nbsp&nbsp指示信息存储位置、提供信息检索功能、具备防篡改性质。
 							<br>
 							<img src="images/bcstudy/funcapp3.jpg">
+						</p>
+						<h3 id="h22" style="color: red;font-weight: bold;">1.2&nbspMerkle&nbsp&nbspTree</h3>
+						<p>
+							<span class="bold">①定义</span>
+							Merkle树（哈希树），一类基于Hash值的二叉树或多叉树，其<span class="redcolor">叶子节点上的值为数据块的哈希值</span>，<span class="redcolor">非叶子节点上的值是其<span class="bold">所有子节点的串联字符串</span>的哈希值</span>。
+							<br>
+							<img src="images/bcstudy/merkletree.png" style="height:188px ; width: 490.5px">
+							<br>
+							Mi=H(mi)&nbsp&nbspi=0,1,2,3
+							<br>
+							Mij=H(Mi,Mj)&nbsp&nbsp&nbsp&nbspRoot=H(M01,M23)
+							<br>
+							<span class="bold">②优势</span>
+							<br>
+							<span class="redcolor">验证数据的复杂度为对数级</span>
+							<br>
+							假设A向B发送一个如上图处理完的Merkel Tree【Root数据】，B需要A证明树中的m2没有被修改过。
+							<br>
+							那么A只需要发送M01、m2、M3三个值进行计算验证Root值即可。
+							<br>
+							<span class="redcolor">对于m个数据块的Merkle Tree，验证某个数据的正确性的复杂度为O(log2n)</span>
+							<br>
+							<span class="bold">③Merkle Tree的应用</span>
+							<br>
+							Merkle树除了可用于<span class="redcolor">验证数据存在</span>之外，典型应用场景还包括<span class="redcolor">快速比较大量数据</span>、<span class="redcolor">快速定位修改</span>、<span class="redcolor">零知识证明</span>
+							<br>
+							①快速比较大量数据：当两个Merkle树的Root哈希值相同时，说明代表的数据都相同
+							<br>
+							②快速定位修改：当需要快速定位时，只需要沿着Root-中间节点-叶子节点的顺序就能定位到发生变化的交易
+							<br>
+							③零知识证明：当需要证明一组交易中包含某个交易A，但又不想泄露A的具体内容时，可以通过构建Merkle数，只公布中间节点和Root的哈希值，即可证明交易A存在。
+							<br>
+							<br>
+							在区块链系统中，Merkle树被用来标识一个区块中的所有交易信息，最终生成该区块所有交易信息的统一的Hash值，<span class="redcolor">区块中任何一笔交易的改变都会使得Merkle根变化</span>。
 						</p>
 						<style>span.redcolor{color: red;} span.bold{font-weight: bold;} span.centers{text-align: center;} </style>
 					</section>
