@@ -1,0 +1,104 @@
+<!DOCTYPE HTML>
+<!--
+	Strata by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+	<head>
+		<title>动态规划算法</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="assets/css/main.css" />
+	</head>
+	<body class="is-preload">
+
+		<!-- Header -->
+			<header id="header" style="text-align: center;">
+				<div class="inner">
+					<a href="https://github.com/OKRan666" class="image avatar"><img src="images/avatar.jpg" alt="" /></a>
+					<h1><strong>动态规划</strong><br />
+					<br /></h1>
+					<p>
+						<a href="#h1">算法定义</a>
+					</p>
+				</div>
+			</header>
+
+		<!-- Main -->
+			<div id="main">
+
+				<!-- One -->
+					<section id="one" style="color: black;">
+						<h1 id="h1">算法定义</h1>
+						<p style="text-indent: 2em;"> 
+							对于动态规划的具体内涵，我们可以从生活问题中慢慢理解。
+						</p><p style="text-indent: 2em;"> 
+							购物是我们生活中经常发生的事，如果我们有足够多的1、5、10、20、50、100元面值的钞票，如果购物金额为W，我们怎样支付才能<span class="bold">用到尽量少的钞票</span>呢？
+						</p><p style="text-indent: 2em;"> 
+							我们很容易想到的一个解决策略就是，尽可能小于W中用面值大的钞票，也就是能用100的就用100的，否则就尽量用50的...依此类推。
+						</p><p style="text-indent: 2em;"> 
+							在这种策略下，W=666=100×6+50×1+10×1+5×1+1×1，共用了10张钞票。
+						</p><p style="text-indent: 2em;"> 
+							这种策略就是“<span class="bold">贪心</span>”:假设我们面对的问题是“凑出w”，贪心策略会<span class="bold">尽快</span>使W变得更小，能让w少100就少100，这样问题就变成了就是凑出w-100，贪心策略的难点在于证明，但从长期的生活经验看，贪心策略是正确的。
+						</p><p style="text-indent: 2em;"> 
+							但是，如果我们改变了钞票的面值，贪心策略也许就不成立了，假设一个奇葩国王把国家的钞票面额定成了1、5、11，那么我们在凑出15的时候，贪心策略会出错：
+						</p><p style="text-indent: 2em;"> 
+							贪心策略：15=11×1+4×1，n=5
+						</p><p style="text-indent: 2em;"> 
+							正确答案：15=5×3，n=3
+						</p><p style="text-indent: 2em;"> 
+							<span class="bold">贪心策略为什么会出错呢？</span>
+						</p><p style="text-indent: 2em;"> 
+							简而言之，就是<span class="bold">目光短浅</span>。
+						</p><p style="text-indent: 2em;"> 
+							在前文说到，贪心策略是尽快地找到问题的解决办法，也就是“尽量使接下来问题中的w更小”，这样，贪心策略在w=15时，会先使用11来使w降到4，但是他没有考虑到之后的4会对整个问题的解造成多大的影响。w=4需要4×1，如果使用5，虽然w=10>4，但是后续只需要5×2。
+						</p><p style="text-indent: 2em;"> 
+							也就是说，<span class="bold">贪心只考虑了目前情况，而不顾及接下来的场景。</span>
+						</p><p style="text-indent: 2em;"> 
+							那么我们该怎么样做才能避免目光短浅的问题呢？
+						</p><p style="text-indent: 2em;"> 
+							首先，万物皆可暴力求解，只是复杂度太高了，为了解决问题，我们或许该找些规律。
+						</p><p style="text-indent: 2em;"> 
+							重新思考凑出w的问题，当w=15时，我们的选择有三种，分别为1、5、11，如果选择5，接下来问题会变成w=10，如果选择11，问题会变成w=4。也就是说，我们做完选择之后，问题的模式没有变化，依旧需要凑出w，只是w的值变化了。我们可以用f(w)表示凑出w所需要的钞票数，那么问题的第一步，w=15时，将会面对以下三种情况：
+						</p>
+						<p style="text-align: center;">选择11，cost1=f(4)+1<br>
+										   选择5，cost2=f(10)+1<br>
+										   选择1，cost3=f(14)+1<br>
+						</p>
+						<p style="text-indent: 2em;"> 
+							对于三种选择，我们需要选择的是其中cost最小的值，此时我们发现，f(n)只与f(n-1)、f(n-5)、f(n-11)三个有关，更确切地说：
+							
+						</p><p style="text-indent: 2em;"> 
+							f(n)=min{f(n-1),f(n-5),f(n-11)}+1
+						</p><p style="text-indent: 2em;"> 
+							也就是说，要求出f(n)，只需要求出三个更小的f，既然如此，我们求出所有的f(i)即可。一个循环就能解决问题，时间复杂度为O(n)。
+						</p>
+						<p style="text-indent: 2em;"> 
+							回顾我们思考的过程，我们是如何得到正确答案的呢？
+						</p><p style="text-indent: 2em;"> 
+							首先，我们分析得到，<span class="bold">f(n)只与f(n-1),f(n-5),f(n-11)的值有关</span>。同时，我们<span class="bold">只关心f(w)的值，并不关心凑出w的过程</span>。
+						</p><p style="text-indent: 2em;"> 
+							和贪心相比，它求出了这一w值下的每种取值可能，通过比较得到正确决策，避免了“目光短浅”。这就是<span class="bold redcolor">动态规划</span>（DP，dynamic programming）。
+						</p><p style="text-indent: 2em;"> 
+							我们之所以能够使用动态规划，是因为问题具有特别的性质：<span class="bold">求出f(n)，只需要知道几个更小的f(c)。</span>此时，求解f(c)称为求解f(n)的子问题。
+						</p><p style="text-indent: 2em;"> 
+							<span class="bold">将一个问题拆成几个子问题，分别求出这些子问题的解，即可推断出大问题的解。</span>
+						</p>
+						<style>span.redcolor{color: red;} span.bold{font-weight: bold;} span.centers{text-align: center;} </style>
+					</section>
+			</div>
+
+		<!-- Footer -->
+			
+
+		<!-- Scripts -->
+			<script src="assets/js/jquery.min.js"></script>
+			<script src="assets/js/jquery.poptrox.min.js"></script>
+			<script src="assets/js/browser.min.js"></script>
+			<script src="assets/js/breakpoints.min.js"></script>
+			<script src="assets/js/util.js"></script>
+			<script src="assets/js/main.js"></script>
+
+	</body>
+</html>
