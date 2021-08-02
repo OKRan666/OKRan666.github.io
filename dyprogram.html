@@ -20,7 +20,8 @@
 					<h1><strong>动态规划</strong><br />
 					<br /></h1>
 					<p>
-						<a href="#h1">算法定义</a>
+						<a href="#h1">算法定义</a><br>
+						<a href="#h2">相关概念</a>
 					</p>
 				</div>
 			</header>
@@ -85,7 +86,18 @@
 						</p><p style="text-indent: 2em;"> 
 							<span class="bold">将一个问题拆成几个子问题，分别求出这些子问题的解，即可推断出大问题的解。</span>
 						</p>
+						<h1 id="h2">相关概念</h1>
+						<p style="font-weight: bold;"> 无后效性</p>
+						<p style="text-indent: 2em;"> 
+							一旦f(n)确定，我们如何凑出f(n)就再也不用看了；要求出f(15),只需要知道f(14),f(10),f(4)的值，而f(14),f(10),f(4)是如何计算出来的，对之后的问题没有影响。简单来说就是<span class="bold">“未来与过去无关”</span>。
+						</p><p style="text-indent: 2em;">
+							严格定义：如果给定某一阶段的状态，则在这一阶段以后过程的发展不受这阶段各段状态的影响。
+						</p>
+						<p style="font-weight: bold;">最优子结构</p>
+						<p style="text-indent: 2em;">在前文中，我们对于f(n)的定义是“凑出w所需要的最少的钞票的数量”。我们求解的过程就是找“最优”的过程。而我们解决问题的方式是利用w=14,10,4的最优解来判断w=15的最优解。也就是说，<span class="bold">大问题的最优解可以由小问题的最优解推出</span>，这就是“最优子结构”性质。
+						<p style="text-indent: 2em;">总结，若想用动态规划思想解决一个问题，这个问题需要满足<span class="bold redcolor">能将大问题拆成几个小问题，且满足无后效性和最优子结构性质</span>。</p>							
 						<style>span.redcolor{color: red;} span.bold{font-weight: bold;} span.centers{text-align: center;} </style>
+
 					</section>
 			</div>
 
